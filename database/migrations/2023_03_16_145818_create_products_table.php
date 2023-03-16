@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('product_quantity');
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('author_id');
-            $table->string('selling_price');
+            $table->double('selling_price');
             $table->timestamps();
         });
     }
