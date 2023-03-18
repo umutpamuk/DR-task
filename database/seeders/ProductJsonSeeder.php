@@ -38,7 +38,7 @@ class ProductJsonSeeder extends Seeder
             ], [
                 'campaign_name'     => "Yerli Yazar Kitaplarında %5 indirim",
                 'campaign_discount' => '0.95',
-                'condition_author_nationality'  => 3
+                'condition_author_nationality'  => 'tr'
             ], [
                 'campaign_name'     => "200 TL ve üzeri alışverişlerde sipariş toplamına %5 indirim",
                 'campaign_discount' => '0.95',
