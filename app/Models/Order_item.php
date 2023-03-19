@@ -17,4 +17,8 @@ class Order_item extends Model
     public function order(){
         return $this->belongsTo(Order::class,'order_id','id');
     }
+
+    public function campaign() {
+        return $this->belongsTo(Campaign::class, 'campaign_id', 'id');
+    }
 }
