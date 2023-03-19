@@ -21,4 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::controller(OrderController::class)->group(function(){
     Route::post('/create-order' , 'createOrder');
+    Route::get('/order-details/{orderNumber}' , 'orderDetails');
 });
