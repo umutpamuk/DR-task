@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->double('selling_price');
             $table->double('discount_price');
-            $table->unsignedBigInteger('campaign_id');
+            $table->unsignedBigInteger('campaign_id')->nullable();
             $table->timestamps();
         });
     }
