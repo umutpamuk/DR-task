@@ -17,4 +17,18 @@ class Product extends Model
     public function category() {
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
+
+    public static function productQuantityCheck($orderProductItem)
+    {
+        $product = Product::where('id', $orderProductItem['product_id'])->first();
+
+        if ($product->product_quantity >= $orderProductItem['product_quantity']) {
+            $response = json_encode(['status'=>"success", 'productDetails' => $product, 'orderProductItem' => $orderProductItem]);
+        } else {
+            $response = json_encode(['status'=>"error", 'message' => "ProductId : {$product->id} tükendi"]);
+        }
+
+        return $response;
+    }
+
 }
