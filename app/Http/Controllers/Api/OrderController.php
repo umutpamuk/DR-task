@@ -268,7 +268,23 @@ class OrderController extends Controller
 
     }
 
+    public function getCampaigns() {
+        $campaigns =  Campaign::activeCampaigns();
 
+        if (COUNT($campaigns) > 0) {
+            foreach ($campaigns as $campaign) {
+                $response[] = [
+                    'id'                => $campaign->id,
+                    'campaign_name'     => $campaign->campaign_name,
+                    'campaign_discount' => $campaign->campaign_discount
+                ];
+            }
+        } else {
+            $response = ['status' => 'error', 'message' => 'Akfi Kampanya Bulunamadı'];
+        }
+
+        return json_encode($response);
+    }
 
 
 }
