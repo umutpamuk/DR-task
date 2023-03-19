@@ -34,6 +34,7 @@ class ProductJsonSeeder extends Seeder
             [
                 'campaign_name'     => "Sabahattin Ali'nin Roman kitaplarında 2 üründen 1 tanesi bedava.",
                 'campaign_discount' => '100',
+                'category_id'       => 1,
                 'condition_author'  => 3
             ], [
                 'campaign_name'     => "Yerli Yazar Kitaplarında %5 indirim",
@@ -64,6 +65,9 @@ class ProductJsonSeeder extends Seeder
                     'created_at'    => Carbon::now()
 
                 ]);
+                if ($conditionIndex == 'condition_author') {
+                    CampaignDetail::where('campaign_id', $campaignId)->update(['condition_category_id' => 1]);
+                }
             }
 
         }

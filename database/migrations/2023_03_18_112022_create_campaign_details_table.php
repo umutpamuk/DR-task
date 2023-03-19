@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('campaign_id');
             $table->string('condition_author')->nullable();
+            $table->unsignedBigInteger('condition_category_id')->nullable();
             $table->enum('condition_author_nationality',['tr','en','other'])->nullable();
             $table->double('condition_amount')->nullable();
             $table->foreign('campaign_id')->references('id')->on("campaigns")->onDelete('cascade');
