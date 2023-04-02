@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateOrderRequest;
+use App\Http\Resources\OrderDetailResource;
 use App\Models\Campaign;
 use App\Models\Order;
 use App\Models\Order_item;
@@ -230,41 +231,8 @@ class OrderController extends Controller
     public function orderDetails($orderNumber) {
 
         $orderDetails     = Order::where('order_number',$orderNumber)->firstOrFail();
-        $orderItemDetails = Order_item::where('order_id',$orderDetails->id)->get();
 
-        foreach ($orderItemDetails as $orderItem) {
-            $productDetailsArray[] = [
-                'productId'     => $orderItem->product->id,
-                'productName'   => $orderItem->product->product_name,
-                'quantity'      => $orderItem->quantity,
-                'categoryId'    => $orderItem->product->category->id,
-                'categoryName'  => $orderItem->product->category->category_name,
-                'authorId'      => $orderItem->product->author->id,
-                'authorName'    => $orderItem->product->author->author_name,
-                'authorNationality'   => $orderItem->product->author->author_nationality,
-                'productSellingPrice' => $orderItem->selling_price,
-                'productDiscountPrice'=> $orderItem->discount_price,
-                'campaignId'    => $orderItem->campaign_id,
-                'campaignName'    => ($orderItem->campaign_id) ? $orderItem->campaign->campaign_name : NULL,
-            ];
-        }
-
-        $response = [
-            'user' => [
-                'userName' => $orderDetails['user']['name'],
-                'userEmail' => $orderDetails['user']['email'],
-            ],
-            'order' => [
-                'orderNumber'   => $orderDetails->order_number,
-                'orderItems'    => $productDetailsArray,
-                'address'       => $orderDetails->address,
-                'shippingPrice' => $orderDetails->shipping_price,
-                'totalAmount'   => $orderDetails->total_amount,
-                'createdAt'     => $orderDetails->created_at,
-            ]
-        ];
-
-        return json_encode($response);
+        return response()->json(new OrderDetailResource($orderDetails));
 
     }
 
