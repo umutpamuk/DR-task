@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\Rule;
 
 class CreateOrderRequest extends FormRequest
@@ -34,5 +36,15 @@ class CreateOrderRequest extends FormRequest
             'checkoutDetails' => 'required|array',
             'checkoutDetails.address' => 'required|string',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'error' => [
+                'code' => 'VALIDATION_ERROR',
+                'message' => $validator->errors()->first(),
+            ]
+        ], 422));
     }
 }
