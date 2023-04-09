@@ -19,9 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(OrderController::class)->group(function () {
-    Route::post('/create-order', 'createOrder');
-    Route::get('/order-details/{orderNumber}', 'orderDetails');
+Route::controller(OrderController::class)->prefix('orders')->group(function () {
+    Route::post('/', 'store');
+    Route::get('/{orderNumber}', 'show');
 });
 
 Route::get('/campaigns', [CampaignController::class, 'index']);

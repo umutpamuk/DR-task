@@ -22,7 +22,7 @@ class OrderController extends Controller
      * @param CreateOrderRequest $request
      * @return JsonResponse
      */
-    public function createOrder(CreateOrderRequest $request) : JsonResponse
+    public function store(CreateOrderRequest $request) : JsonResponse
     {
         $checkout = json_decode($this->checkout($request), true);
 
@@ -81,7 +81,7 @@ class OrderController extends Controller
      * @param $orderNumber
      * @return JsonResponse
      */
-    public function orderDetails($orderNumber)
+    public function show($orderNumber)
     {
         $orderDetails = Order::where('order_number', $orderNumber)->firstOrFail();
 
