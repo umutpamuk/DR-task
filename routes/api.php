@@ -1,8 +1,8 @@
 <?php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\OrderController;
+use \App\Http\Controllers\Api\CampaignController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::controller(OrderController::class)->group(function(){
-    Route::post('/create-order' , 'createOrder');
-    Route::get('/order-details/{orderNumber}' , 'orderDetails');
-    Route::get('/campaigns' , 'getCampaigns');
+Route::controller(OrderController::class)->group(function () {
+    Route::post('/create-order', 'createOrder');
+    Route::get('/order-details/{orderNumber}', 'orderDetails');
 });
+
+Route::get('/campaigns', [CampaignController::class, 'index']);
