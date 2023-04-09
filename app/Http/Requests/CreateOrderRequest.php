@@ -37,14 +37,4 @@ class CreateOrderRequest extends FormRequest
             'checkoutDetails.address' => 'required|string',
         ];
     }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'error' => [
-                'code' => 'VALIDATION_ERROR',
-                'message' => $validator->errors()->first(),
-            ]
-        ], 422));
-    }
 }
